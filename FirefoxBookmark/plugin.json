@@ -4,10 +4,10 @@
   "Disabled": false,
   "IsGlobal": false,
   "Name": "FirefoxBookmark",
-  "Author": "",
+  "Author": "8LWXpg",
   "Version": "1.0.0",
   "Language": "csharp",
-  "Website": "",
+  "Website": "https://github.com/8LWXpg/PowerToysRun-FirefoxBookmark",
   "ExecuteFileName": "Community.PowerToys.Run.Plugin.FirefoxBookmark.dll",
   "IcoPathDark": "Images\\FirefoxBookmark.dark.png",
   "IcoPathLight": "Images\\FirefoxBookmark.light.png"
