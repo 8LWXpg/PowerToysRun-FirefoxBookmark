@@ -1,6 +1,6 @@
-# SSH Plugin for PowerToys Run
+# Firefox bookmark Plugin for PowerToys Run
 
-A [PowerToys Run](https://aka.ms/PowerToysOverview_PowerToysRun) plugin for opening bookmarks in Firefox based browser like zen.
+[PowerToys Run](https://aka.ms/PowerToysOverview_PowerToysRun) plugin for opening bookmarks in Firefox based browser like zen.
 
 Checkout the [Template](https://github.com/8LWXpg/PowerToysRun-PluginTemplate) for a starting point to create your own plugin.
 
