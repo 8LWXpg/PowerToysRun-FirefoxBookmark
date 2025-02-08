@@ -8,11 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties
-{
+namespace Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,147 +22,121 @@ namespace Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if (object.ReferenceEquals(resourceMan, null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Copy URL (Ctrl+C).
         /// </summary>
-        internal static string context_copy_url
-        {
-            get
-            {
+        internal static string context_copy_url {
+            get {
                 return ResourceManager.GetString("context_copy_url", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Open in new window (Ctrl+N).
         /// </summary>
-        internal static string context_open_new
-        {
-            get
-            {
+        internal static string context_open_new {
+            get {
                 return ResourceManager.GetString("context_open_new", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Open in private window (Ctrl+P).
         /// </summary>
-        internal static string context_open_private
-        {
-            get
-            {
+        internal static string context_open_private {
+            get {
                 return ResourceManager.GetString("context_open_private", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Open Firefox Bookmark.
         /// </summary>
-        internal static string plugin_desc
-        {
-            get
-            {
+        internal static string plugin_desc {
+            get {
                 return ResourceManager.GetString("plugin_desc", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to FIrefox Bookmark.
         /// </summary>
-        internal static string plugin_name
-        {
-            get
-            {
+        internal static string plugin_name {
+            get {
                 return ResourceManager.GetString("plugin_name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Browser name.
         /// </summary>
-        internal static string settings_browser_name
-        {
-            get
-            {
+        internal static string settings_browser_name {
+            get {
                 return ResourceManager.GetString("settings_browser_name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The name that can be used in Win+R.
         /// </summary>
-        internal static string settings_browser_name_desc
-        {
-            get
-            {
+        internal static string settings_browser_name_desc {
+            get {
                 return ResourceManager.GetString("settings_browser_name_desc", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The path after %APPDATA%, check about:profiles.
         /// </summary>
-        internal static string settings_profile_desc
-        {
-            get
-            {
+        internal static string settings_profile_desc {
+            get {
                 return ResourceManager.GetString("settings_profile_desc", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Path to &quot;Profiles&quot; folder.
         /// </summary>
-        internal static string settings_profile_path
-        {
-            get
-            {
+        internal static string settings_profile_path {
+            get {
                 return ResourceManager.GetString("settings_profile_path", resourceCulture);
             }
         }
