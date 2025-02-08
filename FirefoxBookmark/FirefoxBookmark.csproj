@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <useWPF>true</useWPF>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Community.PowerToys.Run.Plugin.FirefoxBookmark</AssemblyName>
+        <RootNamespace>Community.PowerToys.Run.Plugin.FirefoxBookmark</RootNamespace>
+        <PluginJson>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/plugin.json'))</PluginJson>
+        <Version>$([System.Text.RegularExpressions.Regex]::Match($(PluginJson), '"Version": "(\S+)"').Groups[1].Value)</Version>
+        <Platforms>x64;ARM64</Platforms>
+        <Title>PowerToys Run FirefoxBookmark</Title>
+        <Product>PowerToys Run FirefoxBookmark Plugin</Product>
+        <Authors></Authors>
+        <RepositoryUrl></RepositoryUrl>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+        <DebugSymbols>true</DebugSymbols>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DefineConstants>TRACE</DefineConstants>
+        <Optimize>true</Optimize>
+        <DebugType>pdbonly</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Images\*.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Community.PowerToys.Run.Plugin.Dependencies" Version="*" />
+      <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.1" />
+    </ItemGroup>
+
+</Project>
