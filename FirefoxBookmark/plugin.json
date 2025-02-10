@@ -1,14 +1,14 @@
 {
-  "ID": "845da8375a4c4b1fb625f3992481e15c",
-  "ActionKeyword": "*",
-  "Disabled": false,
-  "IsGlobal": false,
-  "Name": "FirefoxBookmark",
-  "Author": "8LWXpg",
-  "Version": "1.0.0",
-  "Language": "csharp",
-  "Website": "https://github.com/8LWXpg/PowerToysRun-FirefoxBookmark",
-  "ExecuteFileName": "Community.PowerToys.Run.Plugin.FirefoxBookmark.dll",
-  "IcoPathDark": "Images\\FirefoxBookmark.dark.png",
-  "IcoPathLight": "Images\\FirefoxBookmark.light.png"
+	"ID": "845da8375a4c4b1fb625f3992481e15c",
+	"ActionKeyword": "*",
+	"Disabled": false,
+	"IsGlobal": false,
+	"Name": "FirefoxBookmark",
+	"Author": "8LWXpg",
+	"Version": "1.0.0",
+	"Language": "csharp",
+	"Website": "https://github.com/8LWXpg/PowerToysRun-FirefoxBookmark",
+	"ExecuteFileName": "Community.PowerToys.Run.Plugin.FirefoxBookmark.dll",
+	"IcoPathDark": "Images\\FirefoxBookmark.dark.png",
+	"IcoPathLight": "Images\\FirefoxBookmark.light.png"
 }

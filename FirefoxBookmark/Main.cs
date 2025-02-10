@@ -1,12 +1,4 @@
 using Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties;
-using ManagedCommon;
-using Microsoft.PowerToys.Settings.UI.Library;
-using System.Windows.Controls;
-using Wox.Plugin;
-using System.IO;
-using Wox.Infrastructure;
-using System.Windows.Input;
-using System.Windows;
 
 namespace Community.PowerToys.Run.Plugin.FirefoxBookmark;
 
