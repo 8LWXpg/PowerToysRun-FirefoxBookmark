@@ -1,4 +1,12 @@
 using Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties;
+using ManagedCommon;
+using Microsoft.PowerToys.Settings.UI.Library;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Wox.Infrastructure;
+using Wox.Plugin;
 
 namespace Community.PowerToys.Run.Plugin.FirefoxBookmark;
 
@@ -16,8 +24,8 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 	public string Description => Resources.plugin_desc;
 	public static string PluginID => "845da8375a4c4b1fb625f3992481e15c";
 
-	public IEnumerable<PluginAdditionalOption> AdditionalOptions => new List<PluginAdditionalOption>()
-		{
+	public IEnumerable<PluginAdditionalOption> AdditionalOptions =>
+		[
 			new ()
 			{
 				PluginOptionType = PluginAdditionalOption.AdditionalOptionType.Textbox,
@@ -34,7 +42,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 				DisplayDescription = Resources.settings_browser_name_desc,
 				TextValue = "firefox",
 			},
-		};
+		];
 
 	public void UpdateSettings(PowerLauncherPluginSettings settings)
 	{
@@ -98,9 +106,9 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			bookmarks.AddRange(Bookmark.GetBookmarks(dbPath));
 		}
 
-		var results = bookmarks.ConvertAll(b =>
+		List<Result> results = bookmarks.ConvertAll(b =>
 		{
-			var match = StringMatcher.FuzzySearch(query.Search, b.Title);
+			MatchResult match = StringMatcher.FuzzySearch(query.Search, b.Title);
 			return new Result
 			{
 				Title = b.Title,
@@ -115,7 +123,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 
 		if (!string.IsNullOrEmpty(query.Search))
 		{
-			results.RemoveAll(r => r.Score <= 0);
+			_ = results.RemoveAll(r => r.Score <= 0);
 		}
 
 		return results;
@@ -136,7 +144,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 
 	private void UpdateIconPath(Theme theme)
 	{
-		_favoriteIcon = theme == Theme.Light || theme == Theme.HighContrastWhite
+		_favoriteIcon = theme is Theme.Light or Theme.HighContrastWhite
 			? @"Images\Favorite.light.png"
 			: @"Images\Favorite.dark.png";
 	}

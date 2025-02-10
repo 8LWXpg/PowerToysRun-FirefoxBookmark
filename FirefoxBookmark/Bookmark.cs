@@ -28,7 +28,7 @@ public class Bookmark(string title, string url)
 			connection.Open();
 
 			using var command = new SqliteCommand(query, connection);
-			using var reader = command.ExecuteReader();
+			using SqliteDataReader reader = command.ExecuteReader();
 			while (reader.Read())
 			{
 				bookmarks.Add(new Bookmark(
