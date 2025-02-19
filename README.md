@@ -16,6 +16,8 @@ Checkout the [Template](https://github.com/8LWXpg/PowerToysRun-PluginTemplate) f
 
 The path after `%APPDATA%` and before `Profiles`, check about:profiles in browser.
 
+![settings](./assets/settings.png)
+
 **Default:** `Mozilla\Firefox`
 
 ### Browser name
