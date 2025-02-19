@@ -14,7 +14,7 @@ Checkout the [Template](https://github.com/8LWXpg/PowerToysRun-PluginTemplate) f
 
 ### Path to "Profiles" folder
 
-The path after `%APPDATA%` and before `Profiles`, check about:profiles in browser.
+The path after `%APPDATA%` and before `Profiles`, check about:profiles in browser. Take Firefox as example:
 
 ![settings](./assets/settings.png)
 
