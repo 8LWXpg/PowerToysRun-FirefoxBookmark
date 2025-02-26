@@ -31,6 +31,11 @@ public class Bookmark(string title, string url)
 			using SqliteDataReader reader = command.ExecuteReader();
 			while (reader.Read())
 			{
+				if (reader.IsDBNull(0) || reader.IsDBNull(1))
+				{
+					continue;
+				}
+
 				bookmarks.Add(new Bookmark(
 					reader.GetString(0),
 					reader.GetString(1))
