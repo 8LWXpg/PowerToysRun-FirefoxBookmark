@@ -112,6 +112,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			return new Result
 			{
 				Title = b.Title,
+				SubTitle = b.Url,
 				ToolTipData = new ToolTipData(b.Title, b.Url),
 				IcoPath = _favoriteIcon,
 				Score = match.Score,
