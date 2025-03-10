@@ -12,6 +12,8 @@ Checkout the [Template](https://github.com/8LWXpg/PowerToysRun-PluginTemplate) f
 
 ## Settings
 
+These settings allows support for other Firefox based browser.
+
 ### Path to "Profiles" folder
 
 The path after `%APPDATA%` and before `Profiles`, check about:profiles in browser. Take Firefox as example:
