@@ -133,11 +133,29 @@ namespace Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path to &quot;Profiles&quot; folder.
+        ///   Looks up a localized string similar to Path to "Profiles" folder.
         /// </summary>
         internal static string settings_profile_path {
             get {
                 return ResourceManager.GetString("settings_profile_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore bookmarklets.
+        /// </summary>
+        internal static string settings_ignore_bookmarklets {
+            get {
+                return ResourceManager.GetString("settings_ignore_bookmarklets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks that starts with "javascript:".
+        /// </summary>
+        internal static string settings_ignore_bookmarklets_desc {
+            get {
+                return ResourceManager.GetString("settings_ignore_bookmarklets_desc", resourceCulture);
             }
         }
     }

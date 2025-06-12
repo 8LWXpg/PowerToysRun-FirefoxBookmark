@@ -12,10 +12,12 @@ namespace Community.PowerToys.Run.Plugin.FirefoxBookmark;
 
 public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloadable, IDisposable
 {
-	private const string browserPath = nameof(browserPath);
-	private const string browserName = nameof(browserName);
+	private const string BrowserPath = nameof(BrowserPath);
 	private string? _browserPath;
+	private const string BrowserName = nameof(BrowserName);
 	private string? _browserName;
+	private const string IgnoreBookmarklets = nameof(IgnoreBookmarklets);
+	private bool _ignoreBookmarklets;
 	private string? _favoriteIcon;
 
 	private PluginInitContext? _context;
@@ -29,7 +31,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			new ()
 			{
 				PluginOptionType = PluginAdditionalOption.AdditionalOptionType.Textbox,
-				Key = browserPath,
+				Key = BrowserPath,
 				DisplayLabel = Resources.settings_profile_path,
 				DisplayDescription = Resources.settings_profile_desc,
 				TextValue = "Mozilla\\Firefox",
@@ -37,17 +39,25 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			new ()
 			{
 				PluginOptionType = PluginAdditionalOption.AdditionalOptionType.Textbox,
-				Key = browserName,
+				Key = BrowserName,
 				DisplayLabel = Resources.settings_browser_name,
 				DisplayDescription = Resources.settings_browser_name_desc,
 				TextValue = "firefox",
 			},
+			new()
+			{
+				PluginOptionType = PluginAdditionalOption.AdditionalOptionType.Checkbox,
+				Key = IgnoreBookmarklets,
+				DisplayLabel = Resources.settings_ignore_bookmarklets,
+				DisplayDescription = Resources.settings_ignore_bookmarklets_desc,
+			}
 		];
 
 	public void UpdateSettings(PowerLauncherPluginSettings settings)
 	{
-		_browserPath = settings?.AdditionalOptions?.FirstOrDefault(x => x.Key == browserPath)?.TextValue ?? "Mozilla\\Firefox";
-		_browserName = settings?.AdditionalOptions?.FirstOrDefault(x => x.Key == browserName)?.TextValue ?? "firefox";
+		_browserPath = settings?.AdditionalOptions?.FirstOrDefault(x => x.Key == BrowserPath)?.TextValue ?? "Mozilla\\Firefox";
+		_browserName = settings?.AdditionalOptions?.FirstOrDefault(x => x.Key == BrowserName)?.TextValue ?? "firefox";
+		_ignoreBookmarklets = settings?.AdditionalOptions?.FirstOrDefault(x => x.Key == IgnoreBookmarklets)?.Value ?? false;
 	}
 
 	public List<ContextMenuResult> LoadContextMenus(Result selectedResult)
@@ -104,6 +114,11 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			}
 
 			bookmarks.AddRange(Bookmark.GetBookmarks(dbPath));
+		}
+
+		if (_ignoreBookmarklets)
+		{
+			_ = bookmarks.RemoveAll(b => b.Url.StartsWith("javascript:"));
 		}
 
 		List<Result> results = bookmarks.ConvertAll(b =>

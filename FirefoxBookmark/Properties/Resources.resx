@@ -144,4 +144,10 @@
   <data name="settings_profile_path" xml:space="preserve">
     <value>Path to "Profiles" folder</value>
   </data>
+  <data name="settings_ignore_bookmarklets" xml:space="preserve">
+    <value>Ignore bookmarklets</value>
+  </data>
+  <data name="settings_ignore_bookmarklets_desc" xml:space="preserve">
+    <value>Bookmarks that starts with "javascript:"</value>
+  </data>
 </root>
