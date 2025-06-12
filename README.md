@@ -28,6 +28,10 @@ The name that can be found by Windows shell <kbd>Win+R</kbd>.
 
 **Default:** `firefox`
 
+### Ignore bookmarklets
+
+Ignore bookmarks that starts with `javascript:`
+
 ## Installation
 
 ### Manual
