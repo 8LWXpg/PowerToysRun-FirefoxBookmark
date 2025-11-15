@@ -97,7 +97,7 @@ namespace Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FIrefox Bookmark.
+        ///   Looks up a localized string similar to Firefox Bookmark.
         /// </summary>
         internal static string plugin_name {
             get {
