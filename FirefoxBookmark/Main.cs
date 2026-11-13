@@ -285,7 +285,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			return windows;
 		}
 
-		_ = EnumWindows((window, _) =>
+		_ = EnumWindows((window, lParam) =>
 		{
 			if (!IsWindowVisible(window) || GetWindow(window, GW_OWNER) != IntPtr.Zero)
 			{
