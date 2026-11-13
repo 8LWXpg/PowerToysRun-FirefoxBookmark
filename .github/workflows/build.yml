@@ -25,10 +25,18 @@ jobs:
       - name: Build (${{ matrix.platform }})
         run: dotnet build FirefoxBookmark/FirefoxBookmark.csproj -c Release -p:Platform=${{ matrix.platform }}
 
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          $version = (Get-Content ./FirefoxBookmark/plugin.json | ConvertFrom-Json).Version
+          "value=$version" >> $env:GITHUB_OUTPUT
+
       - name: Package (${{ matrix.platform }})
         shell: pwsh
         run: |
           $assembly = 'Community.PowerToys.Run.Plugin.FirefoxBookmark'
+          $version = '${{ steps.version.outputs.value }}'
           $releasePath = "./FirefoxBookmark/bin/${{ matrix.platform }}/Release/net9.0-windows"
           $dest = "./out/$assembly"
 
@@ -48,11 +56,11 @@ jobs:
             }
           }
 
-          Compress-Archive -Path $dest -DestinationPath "./out/FirefoxBookmark-${{ matrix.platform }}.zip" -Force
+          Compress-Archive -Path $dest -DestinationPath "./out/FirefoxBookmark-v$version-${{ matrix.platform }}.zip" -Force
 
       - name: Upload artifact (${{ matrix.platform }})
         uses: actions/upload-artifact@v4
         with:
-          name: FirefoxBookmark-${{ matrix.platform }}
-          path: out/FirefoxBookmark-${{ matrix.platform }}.zip
+          name: FirefoxBookmark-v${{ steps.version.outputs.value }}-${{ matrix.platform }}
+          path: out/FirefoxBookmark-v${{ steps.version.outputs.value }}-${{ matrix.platform }}.zip
           if-no-files-found: error
