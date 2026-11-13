@@ -1,7 +1,9 @@
 using Community.PowerToys.Run.Plugin.FirefoxBookmark.Properties;
 using ManagedCommon;
 using Microsoft.PowerToys.Settings.UI.Library;
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +14,21 @@ namespace Community.PowerToys.Run.Plugin.FirefoxBookmark;
 
 public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloadable, IDisposable
 {
+	private const uint ASFW_ANY = unchecked((uint)-1);
+	private const int SW_RESTORE = 9;
+
+	[DllImport("user32.dll")]
+	private static extern bool AllowSetForegroundWindow(uint dwProcessId);
+
+	[DllImport("user32.dll")]
+	private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+	[DllImport("user32.dll")]
+	private static extern bool IsIconic(IntPtr hWnd);
+
+	[DllImport("user32.dll")]
+	private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
 	private const string BrowserPath = nameof(BrowserPath);
 	private string? _browserPath;
 	private const string BrowserName = nameof(BrowserName);
@@ -84,7 +101,11 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 				FontFamily = "Segoe Fluent Icons,Segoe MDL2 Assets",
 				AcceleratorKey = Key.N,
 				AcceleratorModifiers = ModifierKeys.Control,
-				Action = _ => bookmark.OpenNewWindow(_browserName!),
+				Action = _ =>
+				{
+					AllowSetForegroundWindow(ASFW_ANY);
+					return bookmark.OpenNewWindow(_browserName!);
+				},
 			},
 			new ()
 			{
@@ -93,7 +114,11 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 				FontFamily = "Segoe Fluent Icons,Segoe MDL2 Assets",
 				AcceleratorKey = Key.P,
 				AcceleratorModifiers = ModifierKeys.Control,
-				Action = _ => bookmark.OpenPrivate(_browserName!),
+				Action = _ =>
+				{
+					AllowSetForegroundWindow(ASFW_ANY);
+					return bookmark.OpenPrivate(_browserName!);
+				},
 			}
 		];
 	}
@@ -133,7 +158,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 				Score = match.Score,
 				TitleHighlightData = match.MatchData,
 				ContextData = b,
-				Action = _ => b.Open(_browserName!),
+				Action = _ => OpenAndFocus(() => b.Open(_browserName!)),
 			};
 		});
 
@@ -143,6 +168,56 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 		}
 
 		return results;
+	}
+
+	private static string? ResolveProcessName(string? browserName)
+	{
+		if (string.IsNullOrWhiteSpace(browserName))
+		{
+			return null;
+		}
+
+		var exe = Path.GetFileNameWithoutExtension(browserName.Trim().Trim('"'));
+		return string.IsNullOrWhiteSpace(exe) ? null : exe;
+	}
+
+	private bool OpenAndFocus(Func<bool> openAction)
+	{
+		AllowSetForegroundWindow(ASFW_ANY);
+
+		bool opened = openAction();
+		if (!opened)
+		{
+			return false;
+		}
+
+		string? processName = ResolveProcessName(_browserName);
+		if (processName is null)
+		{
+			return opened;
+		}
+
+		foreach (Process proc in Process.GetProcessesByName(processName))
+		{
+			using (proc)
+			{
+				IntPtr handle = proc.MainWindowHandle;
+				if (handle == IntPtr.Zero)
+				{
+					continue;
+				}
+
+				if (IsIconic(handle))
+				{
+					ShowWindow(handle, SW_RESTORE);
+				}
+
+				SetForegroundWindow(handle);
+				break;
+			}
+		}
+
+		return opened;
 	}
 
 	public void Init(PluginInitContext context)

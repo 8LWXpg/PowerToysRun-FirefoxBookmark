@@ -1,0 +1,58 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [x64, ARM64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build (${{ matrix.platform }})
+        run: dotnet build FirefoxBookmark/FirefoxBookmark.csproj -c Release -p:Platform=${{ matrix.platform }}
+
+      - name: Package (${{ matrix.platform }})
+        shell: pwsh
+        run: |
+          $assembly = 'Community.PowerToys.Run.Plugin.FirefoxBookmark'
+          $releasePath = "./FirefoxBookmark/bin/${{ matrix.platform }}/Release/net9.0-windows"
+          $dest = "./out/$assembly"
+
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+
+          $items = @(
+            "$releasePath/$assembly.deps.json",
+            "$releasePath/$assembly.dll",
+            "$releasePath/plugin.json",
+            "$releasePath/Images",
+            "$releasePath/ru-RU"
+          )
+
+          foreach ($item in $items) {
+            if (Test-Path $item) {
+              Copy-Item $item $dest -Recurse -Force
+            }
+          }
+
+          Compress-Archive -Path $dest -DestinationPath "./out/FirefoxBookmark-${{ matrix.platform }}.zip" -Force
+
+      - name: Upload artifact (${{ matrix.platform }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: FirefoxBookmark-${{ matrix.platform }}
+          path: out/FirefoxBookmark-${{ matrix.platform }}.zip
+          if-no-files-found: error
