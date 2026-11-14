@@ -271,7 +271,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 		}
 		catch (Exception ex)
 		{
-			Log.Warn($"FirefoxBookmark: virtual desktop manager unavailable: {ex.Message}", typeof(Main));
+			// Log.Warn($"FirefoxBookmark: virtual desktop manager unavailable: {ex.Message}", typeof(Main));
 			return null;
 		}
 	}
@@ -290,7 +290,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 		}
 		catch (Exception ex)
 		{
-			Log.Warn($"FirefoxBookmark: IsWindowOnCurrentVirtualDesktop(0x{window:X}) failed: {ex.Message}", typeof(Main));
+			// Log.Warn($"FirefoxBookmark: IsWindowOnCurrentVirtualDesktop(0x{window:X}) failed: {ex.Message}", typeof(Main));
 			return true;
 		}
 	}
@@ -448,21 +448,21 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 					IntPtr foreground = GetForegroundWindow();
 					if (HasWindowClass(foreground, FirefoxWindowClass))
 					{
-						Log.Info($"FirefoxBookmark: {source}: Firefox already foreground after attempt {attempt}: {DescribeWindow(foreground)}", typeof(Main));
+						// Log.Info($"FirefoxBookmark: {source}: Firefox already foreground after attempt {attempt}: {DescribeWindow(foreground)}", typeof(Main));
 						return;
 					}
 
 					bool activated = BringToForeground(target);
-					Log.Info($"FirefoxBookmark: {source}: focus attempt {attempt} activated={activated} foreground={DescribeWindow(GetForegroundWindow())}", typeof(Main));
+					// Log.Info($"FirefoxBookmark: {source}: focus attempt {attempt} activated={activated} foreground={DescribeWindow(GetForegroundWindow())}", typeof(Main));
 					if (activated)
 					{
 						FlushActivation(target);
 						return;
 					}
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
-					Log.Exception($"FirefoxBookmark: {source}: focus attempt {attempt} failed", ex, typeof(Main));
+					// Log.Exception($"FirefoxBookmark: {source}: focus attempt {attempt} failed", ex, typeof(Main));
 				}
 			}
 		});
@@ -502,12 +502,12 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 					IntPtr foreground = GetForegroundWindow();
 					if (HasWindowClass(foreground, FirefoxWindowClass))
 					{
-						Log.Info($"FirefoxBookmark: {source}: new window {DescribeWindow(newWindow)} created; Firefox already foreground: {DescribeWindow(foreground)}", typeof(Main));
+						// Log.Info($"FirefoxBookmark: {source}: new window {DescribeWindow(newWindow)} created; Firefox already foreground: {DescribeWindow(foreground)}", typeof(Main));
 						return;
 					}
 
 					bool activated = BringToForeground(newWindow);
-					Log.Info($"FirefoxBookmark: {source}: new window {DescribeWindow(newWindow)} activated={activated} foreground={DescribeWindow(GetForegroundWindow())}", typeof(Main));
+					// Log.Info($"FirefoxBookmark: {source}: new window {DescribeWindow(newWindow)} activated={activated} foreground={DescribeWindow(GetForegroundWindow())}", typeof(Main));
 					if (activated)
 					{
 						FlushActivation(newWindow);
@@ -516,11 +516,11 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 					return;
 				}
 
-				Log.Warn($"FirefoxBookmark: {source}: no new Firefox window detected within 2000ms", typeof(Main));
+				// Log.Warn($"FirefoxBookmark: {source}: no new Firefox window detected within 2000ms", typeof(Main));
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Log.Exception($"FirefoxBookmark: {source}: new window focus failed", ex, typeof(Main));
+				// Log.Exception($"FirefoxBookmark: {source}: new window focus failed", ex, typeof(Main));
 			}
 		});
 	}
@@ -550,12 +550,11 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 
 		if (anchor != IntPtr.Zero)
 		{
-			_ = GetWindowThreadProcessId(anchor, out uint anchorPid);
-			bool activated = BringToForeground(anchor);
+			_ = BringToForeground(anchor);
 			FlushActivation(anchor);
-			Log.Info(
-				$"FirefoxBookmark: current-desktop window 0x{anchor:X} pid={anchorPid} activated={activated} foreground={DescribeWindow(GetForegroundWindow())} totalWindows={windowCount}",
-				typeof(Main));
+			// Log.Info(
+			//     $"FirefoxBookmark: current-desktop window 0x{anchor:X} pid={anchorPid} activated={activated} foreground={DescribeWindow(GetForegroundWindow())} totalWindows={windowCount}",
+			//     typeof(Main));
 
 			// Give Firefox time to register the activated window as its most recent one before the URL arrives.
 			Thread.Sleep(100);
@@ -577,9 +576,9 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 		}
 
 		bool useNewWindow = windowCount > 0;
-		Log.Info(
-			$"FirefoxBookmark: no current-desktop Firefox window, totalWindows={windowCount}, useNewWindow={useNewWindow}",
-			typeof(Main));
+		// Log.Info(
+		//     $"FirefoxBookmark: no current-desktop Firefox window, totalWindows={windowCount}, useNewWindow={useNewWindow}",
+		//     typeof(Main));
 
 		if (useNewWindow)
 		{
