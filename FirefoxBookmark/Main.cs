@@ -269,7 +269,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 		{
 			return (IVirtualDesktopManager)new VirtualDesktopManagerCom();
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
 			// Log.Warn($"FirefoxBookmark: virtual desktop manager unavailable: {ex.Message}", typeof(Main));
 			return null;
@@ -288,7 +288,7 @@ public class Main : IPlugin, IPluginI18n, IContextMenu, ISettingProvider, IReloa
 			return virtualDesktopManager.IsWindowOnCurrentVirtualDesktop(window, out int onCurrentDesktop) == 0
 				&& onCurrentDesktop != 0;
 		}
-		catch (Exception ex)
+		catch (Exception)
 		{
 			// Log.Warn($"FirefoxBookmark: IsWindowOnCurrentVirtualDesktop(0x{window:X}) failed: {ex.Message}", typeof(Main));
 			return true;
